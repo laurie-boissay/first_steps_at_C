@@ -28,34 +28,129 @@ Le but du jeu, bien sûr, est de trouver le nombre mystère en un minimum de cou
     nombreMystere = (rand() % (MAX - MIN + 1)) + MIN;
 */
 
+/*
+######### AMELIORATIONS #########################################
+- compteur de coups => ok
+- menu quitter/continuer #done ! => ok
+- mode 2 joueurs => ok
+- Niveaux de difficulté => ok
+*/
+
 int main(int argc, char *argv[])
 {
-    int proposed_nbr, mysterious_nbr;
-    const int MIN = 1, MAX = 100;
+    int proposed_nbr, mysterious_nbr, tries_counter, want_to_play, menu, max_nbr = 100, nbr_of_players = 1;
+    const int MIN = 1;
 
-    // Generate the mysterious number :
-    srand(time(NULL));
-    mysterious_nbr = (rand() % (MAX - MIN + 1)) + MIN;
-
-    // Ask a number until the mysterious number is discovered.
     do
     {
-        printf("Suggest a number between 1 and 100 inclusive : \n");
-        scanf("%d", &proposed_nbr);
+        menu = 1, want_to_play = 0;
+        while (menu)
+        {    
+            // MENU        
+            printf("\n### MENU ###\n0. Quitt\n1. 1 player mode (default)\n2. 2 players mode\n3. Maximum number is 100 (default)\n4. Maximum number is 1000\n5. Maximum number is 10 000\n6. Play\nYour choice : ");
+            scanf("%d", &menu);
 
-        if (proposed_nbr > mysterious_nbr)
-        {
-            printf("It's less !\n");
+            switch (menu)
+            {
+                case 0:
+                printf("\nBye.\n");
+                menu = 0;
+                break;
+
+                case 1:
+                nbr_of_players = 1;
+                printf("\nYou will play against your computeur.\n");
+                break;
+
+                case 2:
+                nbr_of_players = 2;
+                printf("\nYou will play against an other player.\n");
+                break;
+
+                case 3:
+                max_nbr = 100;
+                printf("\nThe maximum mysterious number is %d.\n", max_nbr);
+                break;
+
+                case 4:
+                max_nbr = 1000;
+                printf("\nThe maximum mysterious number is %d.\n", max_nbr);
+                break;
+
+                case 5:
+                max_nbr = 10000;
+                printf("\nThe maximum mysterious number is %d.\n", max_nbr);
+                break;
+
+                case 6:
+                printf("\nNumber of players  : %d.\nMaximum mysterious number : %d.\nLet's play !\n", nbr_of_players, max_nbr);
+                want_to_play = 1;
+                menu = 0;
+                break;
+
+                default:
+                printf("\nI did not understand.\n");
+                break; 
+            }
         }
-        else if (proposed_nbr < mysterious_nbr)
+
+        // Generate the mysterious number :
+
+        if (nbr_of_players == 1 && want_to_play) // 1 player mode.
         {
-            printf("It's more !\n");
+            srand(time(NULL));
+            mysterious_nbr = (rand() % (max_nbr - MIN + 1)) + MIN;
         }
-    }while (proposed_nbr != mysterious_nbr);
 
-    // The mysterious number has been found :
-    printf("Congratz !\n");
+        if (nbr_of_players == 2 && want_to_play) // 2 players mode.
+        {
+            do
+            {
+                printf("Choose the mysterious number between %d and %d : ", MIN, max_nbr);
+                scanf("%d", &mysterious_nbr);
+            }while (mysterious_nbr < MIN || mysterious_nbr > max_nbr);
+            
+            
+            system("clear");
+        }
 
+
+        tries_counter = 0;
+
+        // Ask a number until the mysterious number is discovered.
+        while (proposed_nbr != mysterious_nbr && want_to_play)
+        {
+            printf("\nSuggest a number between %d and %d inclusive : \n", MIN, max_nbr);
+            scanf("%d", &proposed_nbr);
+            tries_counter ++;
+
+            if (proposed_nbr > mysterious_nbr)
+            {
+                printf("It's less !\n");
+            }
+
+            else if (proposed_nbr < mysterious_nbr)
+            {
+                printf("It's more !\n");
+            }
+
+            else // The mysterious number has been found :
+            {    
+                if (tries_counter > 1)
+                {
+                    printf("\nCongratz ! You find the mysterious number in %d tries.\n", tries_counter);
+                }
+
+                else
+                {
+                    printf("\nCongratz ! You find the mysterious number in 1 try. What luck !\n");
+                }
+            }
+        }
+   
+    }while (want_to_play);
+    
+    
     return 0;
 }
 
