@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
     // Ask a number until the mysterious number is discovered.
     do
     {
-        printf("Proposez un nombre entre 1 et 100 inclus : \n");
+        printf("Suggest a number between 1 and 100 inclusive : \n");
         scanf("%d", &proposed_nbr);
 
         if (proposed_nbr > mysterious_nbr)
