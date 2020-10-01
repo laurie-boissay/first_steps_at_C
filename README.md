@@ -1,2 +1,5 @@
 # first_steps_at_C
-Create a menu with a switch condition
+
+Learn C to do robotics.
+
+- create a menu with a switch condition
