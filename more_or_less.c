@@ -30,31 +30,31 @@ Le but du jeu, bien sûr, est de trouver le nombre mystère en un minimum de cou
 
 int main(int argc, char *argv[])
 {
-    int nbr_propose, nbr_mystere;
+    int proposed_nbr, mysterious_nbr;
     const int MIN = 1, MAX = 100;
 
-    // Générer le nombre mystère :
+    // Generate the mysterious number :
     srand(time(NULL));
-    nbr_mystere = (rand() % (MAX - MIN + 1)) + MIN;
+    mysterious_nbr = (rand() % (MAX - MIN + 1)) + MIN;
 
-    // Demander un nombre tant que le nombre mystère n'est pas découvert.
+    // Ask a number until the mysterious number is discovered.
     do
     {
         printf("Proposez un nombre entre 1 et 100 inclus : \n");
-        scanf("%d", &nbr_propose);
+        scanf("%d", &proposed_nbr);
 
-        if (nbr_propose > nbr_mystere)
+        if (proposed_nbr > mysterious_nbr)
         {
-            printf("C'est moins !\n");
+            printf("It's less !\n");
         }
-        else if (nbr_propose < nbr_mystere)
+        else if (proposed_nbr < mysterious_nbr)
         {
-            printf("C'est plus !\n");
+            printf("It's more !\n");
         }
-    }while (nbr_propose != nbr_mystere);
+    }while (proposed_nbr != mysterious_nbr);
 
-    // Le nombre mystère est trouvé :
-    printf("Bravo vous avez trouvé !\n");
+    // The mysterious number has been found :
+    printf("Congratz !\n");
 
     return 0;
 }
