@@ -1,0 +1,1 @@
+void display_menu(int *p_menu, int *p_nbr_of_players, int *p_max_nbr, int *p_want_to_play);
